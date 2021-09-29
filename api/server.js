@@ -21,7 +21,7 @@ server.post("/api/users",(req,res)=>{
 })
 
 server.get("/api/users", (req,res)=>{
-    User.findAll()
+    User.find()
         .then(users=>{
             console.log(users)
             res.status(200).json(users)
@@ -69,7 +69,7 @@ server.put("/api/users/:id",async (req,res) => {
         }else{
             const updatedUser = await User.update(id,changes)
             if(!updatedUser){
-                res.status(404).json({ message: "There was an error while saving the user to the database" })
+                res.status(404).json({ message: "The user with the specified ID does not exist" })
             }else{
                 res.status(200).json(updatedUser)
             }
@@ -80,4 +80,4 @@ server.put("/api/users/:id",async (req,res) => {
     }
 })
 
-module.exports = {}; // EXPORT YOUR SERVER instead of {}
+module.exports = server; // EXPORT YOUR SERVER instead of {}
