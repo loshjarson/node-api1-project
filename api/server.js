@@ -43,4 +43,18 @@ server.get("/api/users/:id",(req,res)=>{
         })
 })
 
+server.delete("/api/users/:id",async (req, res)=>{
+    try{
+        const {id} = req.params
+        const deletedUser = await User.remove(id)
+        if(!deletedUser){
+            res.status(500).json(`User ${id} doesn't exist`)
+        }else{
+            res.status(201).json(deletedUser)
+        }
+    }catch(err){
+        res.status(500).json({message:err.message})
+    }
+})
+
 module.exports = {}; // EXPORT YOUR SERVER instead of {}
