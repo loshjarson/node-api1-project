@@ -33,6 +33,14 @@ server.get("/api/users", (req,res)=>{
 
 server.get("/api/users/:id",(req,res)=>{
     const idVar = req.params.id
+    User.findById(idVar)
+        .then(user=>{
+            if(!user){
+                res.status(400).json(`Sorry, but user ${idVar} does not exist`)
+            }else{
+                res.json(user)
+            }
+        })
 })
 
 module.exports = {}; // EXPORT YOUR SERVER instead of {}
